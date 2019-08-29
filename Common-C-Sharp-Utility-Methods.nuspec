@@ -2,17 +2,22 @@
 <package >
   <metadata>
     <id>Common_C_Sharp_Utility_Methods</id>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <title>Common C# (C Sharp) Utility Methods</title>
     <authors>mckabue</authors>
     <owners>mckabue</owners>
-    <licenseUrl>https://github.com/McKabue/Common-C-Sharp-Utility-Methods/blob/master/LICENSE</licenseUrl>
+    <licenseUrl type="file">LICENSE.txt</licenseUrl>
     <projectUrl>https://github.com/McKabue/Common-C-Sharp-Utility-Methods</projectUrl>
     <iconUrl>https://dummyimage.com/500/544505/ffffff.jpg&text=C%23</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Common C# (C Sharp) Utility Methods</description>
-    <releaseNotes>Initial Release.</releaseNotes>
+    <releaseNotes>Renamed Common_C_Sharp_Utility_Methods.Files namespace to Common_C_Sharp_Utility_Methods.Mimetypes.</releaseNotes>
     <copyright>Copyright 2019</copyright>
     <tags>Common C# C-Sharp Utility Methods mckabue</tags>
+    <repository type="git" url="https://github.com/McKabue/Common-C-Sharp-Utility-Methods.git" branch="master" />
   </metadata>
+
+  <files>
+    <file src="LICENSE.txt" target="" />
+  </files>
 </package>
