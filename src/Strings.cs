@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Text;
 
 namespace Common_C_Sharp_Utility_Methods
@@ -16,6 +17,16 @@ namespace Common_C_Sharp_Utility_Methods
             }
 
             return new byte[] { };
+        }
+
+        public static string Join(this string separator, params string[] value)
+        {
+            return string.Join(separator, value);
+        }
+
+        public static string Join(this IEnumerable<string> value, string separator)
+        {
+            return string.Join(separator, value);
         }
     }
 }
