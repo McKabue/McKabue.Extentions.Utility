@@ -4,7 +4,7 @@
     <Description>Common C Sharp Utility Methods</Description>
     <Authors>[Kabue Charles](me@mckabue.com);</Authors>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>8.0</LangVersion>
     <RootNamespace>Common_C_Sharp_Utility_Methods</RootNamespace>
     <PackageId>Common-C-Sharp-Utility-Methods</PackageId>
     <Version>$(Version)</Version>
