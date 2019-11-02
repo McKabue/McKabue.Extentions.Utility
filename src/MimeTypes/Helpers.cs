@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using static Common_C_Sharp_Utility_Methods.MimeTypes.MimeTypeMap;
 
 namespace Common_C_Sharp_Utility_Methods.MimeTypes
@@ -24,7 +26,7 @@ namespace Common_C_Sharp_Utility_Methods.MimeTypes
             yield break;
         }
 
-        public static MimeTypeModel GetMimeByExtention(this string extensionOrPathName)
+        public static MimeTypeModel GetMimeFromExtention(this string extensionOrPathName)
         {
             if (extensionOrPathName.IsEmpty())
             {
@@ -50,7 +52,7 @@ namespace Common_C_Sharp_Utility_Methods.MimeTypes
             return null;
         }
 
-        public static MimeTypeModel GetMimeByType(this string contentType)
+        public static MimeTypeModel GetMimeFromContentType(this string contentType)
         {
             if (contentType.IsEmpty())
             {
@@ -73,5 +75,47 @@ namespace Common_C_Sharp_Utility_Methods.MimeTypes
 
         public static MimeTypeModel GetMimeValues(this MimeType mime) => mimeTypeMappings.Value.FirstOrDefault(i => i.MimeType == mime);
 
+        /// <summary>
+        /// https://www.example-code.com/csharp/determine_file_type_from_content.asp
+        /// https://github.com/0xbrock/FileTypeChecker
+        /// https://www.garykessler.net/library/file_sigs.html
+        /// https://www.e-iceblue.com/Tutorials/Spire.PDF/Spire.PDF-Program-Guide/Document-Operation/Detect-if-a-PDF-file-is-PDF/A-in-C.html
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        public static async Task<MimeTypeModel> GetMimeFromBinaryContent(this Stream stream)
+        {
+            if (stream == null)
+            {
+                return null;
+            }
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                await stream.CopyToAsync(ms);
+
+                if ((await GetBytes(ms, 0, 4)).Equals(new byte[] { 0x25, 0x50, 0x44, 0x46 }))
+                {
+                    return new MimeTypeModel(MimeType.PDF);
+                }
+            }
+
+            return null;
+        }
+
+        private static async Task<byte[]> GetBytes(Stream stream, int start, int end)
+        {
+            using (stream)
+            {
+                stream.Position = 0;
+                byte[] buffer = new byte[(end - start) * 1024];
+
+                await stream.ReadAsync(buffer, start, end);
+
+                stream.Position = 0;
+
+                return buffer;
+            }
+        }
     }
 }
