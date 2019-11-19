@@ -63,15 +63,40 @@ namespace Common_C_Sharp_Utility_Methods
         /// 
         /// Stream from response.Content.ReadAsStreamAsync() is not readable randomly
         /// https://stackoverflow.com/a/40351007/3563013
+        /// 
+        /// Clone Stream
+        /// https://stackoverflow.com/a/147961/3563013
         /// </summary>
         /// <param name="link"></param>
         /// <returns></returns>
-        public static async Task<Stream> GetReadableStream(this Stream stream)
+        public static async Task<Stream> CloneStream(this Stream stream, bool copyUsingBytes = false)
         {
             RecyclableMemoryStreamManager recyclableMemoryStreamManager = new RecyclableMemoryStreamManager();
 
+            if (stream.CanSeek)
+            {
+                stream.Position = 0;
+                stream.Seek(0, SeekOrigin.Begin);
+            }
+
+
             Stream newStream = recyclableMemoryStreamManager.GetStream();
-            await stream.CopyToAsync(newStream);
+            if (copyUsingBytes)
+            {
+                const int readSize = 4096;
+                byte[] buffer = new byte[readSize];
+
+                int count = stream.Read(buffer, 0, readSize);
+                while (count > 0)
+                {
+                    newStream.Write(buffer, 0, count);
+                    count = stream.Read(buffer, 0, readSize);
+                }
+            }
+            else
+            {
+                await stream.CopyToAsync(newStream);
+            }
 
             newStream.Position = 0;
             newStream.Seek(0, SeekOrigin.Begin);

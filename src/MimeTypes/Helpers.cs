@@ -93,25 +93,35 @@ namespace Common_C_Sharp_Utility_Methods.MimeTypes
         /// <returns></returns>
         public static async Task<MimeTypeModel> GetMimeFromBinaryContent(this Stream stream)
         {
-            using (stream = await stream.GetReadableStream())
+            if (stream == null)
             {
-                if (stream == null)
-                {
-                    return null;
-                }
+                return null;
+            }
 
-                if ((await GetBytes(stream, 0, 4)).Equals(new byte[] { 0x25, 0x50, 0x44, 0x46 }))
-                {
-                    return new MimeTypeModel(MimeType.PDF);
-                }
+            if ((await GetBytes(stream, 0, 4)).Equals(new byte[] { 0x25, 0x50, 0x44, 0x46 }))
+            {
+                return new MimeTypeModel(MimeType.PDF);
             }
 
             return null;
         }
 
+        public static async Task<MimeTypeModel> GetMimeFromBinaryContent(this Stream stream, bool dispose = false)
+        {
+            if (dispose)
+            {
+                using (stream)
+                {
+                    return await GetMimeFromBinaryContent(stream);
+                }
+            }
+
+            return await GetMimeFromBinaryContent(stream);
+        }
+
         private static async Task<byte[]> GetBytes(Stream stream, int start, int end)
         {
-            using (stream)
+            using (stream = await stream.CloneStream())
             {
                 byte[] buffer = new byte[(end - start) * 1024];
 
