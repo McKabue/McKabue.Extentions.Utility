@@ -80,21 +80,27 @@ namespace Common_C_Sharp_Utility_Methods.MimeTypes
         /// https://github.com/0xbrock/FileTypeChecker
         /// https://www.garykessler.net/library/file_sigs.html
         /// https://www.e-iceblue.com/Tutorials/Spire.PDF/Spire.PDF-Program-Guide/Document-Operation/Detect-if-a-PDF-file-is-PDF/A-in-C.html
+        /// 
+        /// c# MemoryStream vs Byte Array
+        /// https://stackoverflow.com/a/53234494/3563013
+        /// https://stackoverflow.com/a/44214909/3563013
+        /// 
+        /// Stream from response.Content.ReadAsStreamAsync() is not readable randomly
+        /// https://stackoverflow.com/a/40351007/3563013
+        /// 
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
         public static async Task<MimeTypeModel> GetMimeFromBinaryContent(this Stream stream)
         {
-            if (stream == null)
+            using (stream = await stream.GetReadableStream())
             {
-                return null;
-            }
+                if (stream == null)
+                {
+                    return null;
+                }
 
-            using (MemoryStream ms = new MemoryStream())
-            {
-                await stream.CopyToAsync(ms);
-
-                if ((await GetBytes(ms, 0, 4)).Equals(new byte[] { 0x25, 0x50, 0x44, 0x46 }))
+                if ((await GetBytes(stream, 0, 4)).Equals(new byte[] { 0x25, 0x50, 0x44, 0x46 }))
                 {
                     return new MimeTypeModel(MimeType.PDF);
                 }
@@ -107,12 +113,9 @@ namespace Common_C_Sharp_Utility_Methods.MimeTypes
         {
             using (stream)
             {
-                stream.Position = 0;
                 byte[] buffer = new byte[(end - start) * 1024];
 
                 await stream.ReadAsync(buffer, start, end);
-
-                stream.Position = 0;
 
                 return buffer;
             }
