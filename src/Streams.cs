@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.IO;
 
@@ -102,6 +104,34 @@ namespace Common_C_Sharp_Utility_Methods
             newStream.Seek(0, SeekOrigin.Begin);
 
             return newStream;
+        }
+
+        /// <summary>
+        /// https://stackoverflow.com/a/13312954/3563013
+        /// </summary>
+        /// <param name="streamProvider"></param>
+        /// <param name="encoding"></param>
+        /// <returns></returns>
+        public static IEnumerable<string> ReadAllLines(this Stream stream, Encoding encoding = null)
+        {
+            encoding = encoding ?? Encoding.UTF8;
+
+            using (stream)
+            {
+                if (!stream.CanRead)
+                {
+                    yield break;
+                }
+                using (StreamReader reader = new StreamReader(stream, encoding))
+                {
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        yield return line;
+                    }
+                }
+            }
+
         }
     }
 }
