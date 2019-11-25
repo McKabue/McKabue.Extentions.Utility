@@ -131,7 +131,22 @@ namespace Common_C_Sharp_Utility_Methods
                     }
                 }
             }
+        }
+        public static string ReadAllText(this Stream stream, Encoding encoding = null)
+        {
+            encoding = encoding ?? Encoding.UTF8;
 
+            using (stream)
+            {
+                if (!stream.CanRead)
+                {
+                    return string.Empty;
+                }
+                using (StreamReader reader = new StreamReader(stream, encoding))
+                {
+                    return reader.ReadToEnd();
+                }
+            }
         }
     }
 }
