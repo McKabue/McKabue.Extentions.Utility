@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace Common_C_Sharp_Utility_Methods.Tests
+namespace McKabue.Extentions.Utility.Tests
 {
     public class UnitTest
     {

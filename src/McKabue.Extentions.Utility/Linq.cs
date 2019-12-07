@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Common_C_Sharp_Utility_Methods
+namespace McKabue.Extentions.Utility
 {
     public static class Linq
     {

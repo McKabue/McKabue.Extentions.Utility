@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common-C-Sharp-Utility-Methods", "Common-C-Sharp-Utility-Methods.csproj", "{4E9B6EA7-AD07-414D-AB66-D02C2BA297FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "McKabue.Extentions.Utility", "src/McKabue.Extentions.Utility/McKabue.Extentions.Utility.csproj", "{4E9B6EA7-AD07-414D-AB66-D02C2BA297FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common_C_Sharp_Utility_Methods.Tests", "test\Common_C_Sharp_Utility_Methods.Tests.csproj", "{5787EEE4-A521-448C-BAE8-7501EC4F1628}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "McKabue.Extentions.Utility.Tests", "src/tests/McKabue.Extentions.Utility.Tests.csproj", "{5787EEE4-A521-448C-BAE8-7501EC4F1628}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

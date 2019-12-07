@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using static Common_C_Sharp_Utility_Methods.MimeTypes.MimeTypeMap;
+using static McKabue.Extentions.Utility.MimeTypes.MimeTypeMap;
 
-namespace Common_C_Sharp_Utility_Methods.MimeTypes
+namespace McKabue.Extentions.Utility.MimeTypes
 {
     public static class Helpers
     {

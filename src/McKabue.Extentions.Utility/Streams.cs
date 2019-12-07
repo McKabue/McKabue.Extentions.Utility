@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.IO;
 
-namespace Common_C_Sharp_Utility_Methods
+namespace McKabue.Extentions.Utility
 {
     public static class Streams
     {

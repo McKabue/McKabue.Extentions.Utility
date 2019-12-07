@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 
-namespace Common_C_Sharp_Utility_Methods.Enums
+namespace McKabue.Extentions.Utility.Enums
 {
     public static class EnumUtilities
     {

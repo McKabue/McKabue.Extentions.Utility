@@ -5,8 +5,8 @@
     <Authors>[Kabue Charles](me@mckabue.com);</Authors>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <LangVersion>8.0</LangVersion>
-    <RootNamespace>Common_C_Sharp_Utility_Methods</RootNamespace>
-    <PackageId>Common-C-Sharp-Utility-Methods</PackageId>
+    <RootNamespace>McKabue.Extentions.Utility</RootNamespace>
+    <PackageId>McKabue.Extentions.Utility</PackageId>
     <Version>$(Version)</Version>
     <Owners>mckabue</Owners>
     <PackageReleaseNotes>$(ReleaseNotes)</PackageReleaseNotes>

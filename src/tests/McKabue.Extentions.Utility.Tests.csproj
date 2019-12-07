@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <RootNamespace>Common_C_Sharp_Utility_Methods.Tests</RootNamespace>
+    <RootNamespace>McKabue.Extentions.Utility.Tests</RootNamespace>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Common-C-Sharp-Utility-Methods.csproj" />
+    <ProjectReference Include="..\McKabue.Extentions.Utility\McKabue.Extentions.Utility.csproj" />
   </ItemGroup>
 
 </Project>

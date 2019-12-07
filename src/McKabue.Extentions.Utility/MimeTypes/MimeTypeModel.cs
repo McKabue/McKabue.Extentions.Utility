@@ -1,9 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
-using Common_C_Sharp_Utility_Methods.Enums;
-using static Common_C_Sharp_Utility_Methods.MimeTypes.MimeTypeMap;
+using McKabue.Extentions.Utility.Enums;
+using static McKabue.Extentions.Utility.MimeTypes.MimeTypeMap;
 
-namespace Common_C_Sharp_Utility_Methods.MimeTypes
+namespace McKabue.Extentions.Utility.MimeTypes
 {
     public class MimeTypeModel
     {

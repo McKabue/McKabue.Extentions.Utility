@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace Common_C_Sharp_Utility_Methods.Enums
+namespace McKabue.Extentions.Utility.Enums
 {
     [AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = false)]
     public sealed class OrderAttribute : Attribute

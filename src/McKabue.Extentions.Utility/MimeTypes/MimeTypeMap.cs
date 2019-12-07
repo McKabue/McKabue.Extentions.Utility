@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
-namespace Common_C_Sharp_Utility_Methods.MimeTypes
+namespace McKabue.Extentions.Utility.MimeTypes
 {
     /// <summary>
     /// https://github.com/samuelneff/MimeTypeMap/blob/master/src/MimeTypes/MimeTypeMap.cs
