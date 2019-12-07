@@ -15,10 +15,15 @@
   <ItemGroup>
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.6.0" />
     <PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="1.3.0" />
+    <PackageReference Include="UrlCombine" Version="2.0.0" />
   </ItemGroup>
 
   <PropertyGroup>
     <DefaultItemExcludes>$(DefaultItemExcludes);test\**\*</DefaultItemExcludes>
   </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
 
 </Project>
