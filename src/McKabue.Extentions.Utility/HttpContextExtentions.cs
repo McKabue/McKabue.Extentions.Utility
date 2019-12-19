@@ -26,18 +26,18 @@ namespace McKabue.Extentions.Utility
         }
         public static string BasePath(this HttpContext _httpContext)
         {
-            return _httpContext != null ? 
-                $"{_httpContext?.Request?.Scheme}://{_httpContext?.Request?.Host.Value}" : 
+            return _httpContext != null ?
+                $"{_httpContext?.Request?.Scheme}://{_httpContext?.Request?.Host.Value}" :
                 string.Empty;
         }
         public static bool IsLocalhost(this HttpContext _httpContext)
         {
             string host = _httpContext?.Request?.Host.Host.Trim();
             string ip = _httpContext?.IpAddress();
-            return string.Equals(host, "localhost", StringComparison.OrdinalIgnoreCase) || 
-                string.Equals(ip, "::1", StringComparison.OrdinalIgnoreCase) || 
-                string.Equals(ip, "127.0.0.1", StringComparison.OrdinalIgnoreCase) || 
-                string.Equals(ip, "127.0.0.0", StringComparison.OrdinalIgnoreCase) || 
+            return string.Equals(host, "localhost", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(ip, "::1", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(ip, "127.0.0.1", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(ip, "127.0.0.0", StringComparison.OrdinalIgnoreCase) ||
                 string.Equals(ip, "0.0.0.0", StringComparison.OrdinalIgnoreCase);
         }
         public static string Referrer(this HttpContext _httpContext)

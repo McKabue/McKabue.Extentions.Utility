@@ -79,7 +79,9 @@ namespace McKabue.Extentions.Utility
                 : items.Any(k => k.Equals(item));
 
             if (!isInItems)
+            {
                 items.Add(item);
+            }
             return isInItems;
         }
     }
