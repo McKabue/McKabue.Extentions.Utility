@@ -98,7 +98,9 @@ namespace McKabue.Extentions.Utility.MimeTypes
                 return null;
             }
 
-            if ((await GetBytes(stream, 0, 4)).Equals(new byte[] { 0x25, 0x50, 0x44, 0x46 }))
+            IEnumerable<string> hex = await GetBytesInHex(stream, 0, 4);
+
+            if (hex.SequenceEqual(new string[] { "25", "50", "44", "46" }))
             {
                 return new MimeTypeModel(MimeType.PDF);
             }
@@ -119,15 +121,22 @@ namespace McKabue.Extentions.Utility.MimeTypes
             return await GetMimeFromBinaryContent(stream);
         }
 
-        private static async Task<byte[]> GetBytes(Stream stream, int start, int end)
+        /// <summary>
+        /// https://docs.microsoft.com/en-us/dotnet/api/system.text.asciiencoding.getstring?view=netframework-4.8
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        private static async Task<IEnumerable<string>> GetBytesInHex(Stream stream, int start, int end)
         {
             using (stream = await stream.CloneStream())
             {
-                byte[] buffer = new byte[(end - start) * 1024];
+                byte[] buffer = new byte[end - start];
 
                 await stream.ReadAsync(buffer, start, end);
 
-                return buffer;
+                return buffer.Select(i => string.Format("{0:X2}", i));
             }
         }
     }
