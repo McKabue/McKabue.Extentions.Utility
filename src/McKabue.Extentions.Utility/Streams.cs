@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -15,38 +16,124 @@ namespace McKabue.Extentions.Utility
         /// </summary>
         /// <param name="stream"></param>
         /// <returns></returns>
-        public static long GetSize(this Stream stream)
+        public static decimal GetSize(
+            this Stream stream,
+            StreamSizeFormat streamSizeFormat,
+            bool countWithBytes = false)
         {
-            long originalPosition = 0;
+            if (stream == null)
+            {
+                return 0;
+            }
+
             long totalBytesRead = 0;
 
-            if (stream.CanSeek)
+            if (!countWithBytes)
             {
-                originalPosition = stream.Position;
-                stream.Position = 0;
+                totalBytesRead = stream.Length;
             }
-
-            try
+            else
             {
-                byte[] readBuffer = new byte[4096];
+                long originalPosition = 0;
 
-                int bytesRead;
-
-                while ((bytesRead = stream.Read(readBuffer, 0, 4096)) > 0)
-                {
-                    totalBytesRead += bytesRead;
-                }
-
-            }
-            finally
-            {
                 if (stream.CanSeek)
                 {
-                    stream.Position = originalPosition;
+                    originalPosition = stream.Position;
+                    stream.Position = 0;
+                }
+
+                try
+                {
+                    int readInChunksOf4KiB = (int)StreamSizeFormat.KiB * 4;
+                    byte[] readBuffer = new byte[readInChunksOf4KiB];
+
+                    int bytesRead;
+
+                    while ((bytesRead = stream.Read(readBuffer, 0, readInChunksOf4KiB)) > 0)
+                    {
+                        totalBytesRead += bytesRead;
+                    }
+
+                }
+                finally
+                {
+                    if (stream.CanSeek)
+                    {
+                        stream.Position = originalPosition;
+                    }
                 }
             }
 
-            return totalBytesRead;
+            return (decimal)totalBytesRead / (decimal)getConversionValue(streamSizeFormat);
+        }
+
+        /// <summary>
+        /// <see href="https://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0220">
+        /// Compiler Error CS0220
+        /// </see>
+        /// <see href="https://stackoverflow.com/q/10167219/3563013">
+        /// UInt64 and “The operation overflows at compile time in checked mode” - CS0220
+        /// </see>
+        /// </summary>
+        public enum StreamSizeFormat
+        {
+            B = 1,
+
+            /// <summary>
+            /// <see href="https://en.wikipedia.org/wiki/Kibibyte">1 kibibyte is 1024 bytes.</see>
+            /// 1 kilobyte is 1000 bytes.
+            /// most converters treat them interchacheably.
+            /// </summary>
+            KiB = 1024 * B,
+            KB = 1000 * B,
+
+            MB = 2,
+            MiB = 2,
+
+            GB = 1 + MB,
+            GiB = 1 + MiB,
+
+            TB = 1 + GB,
+            TiB = 1 + GiB,
+
+            PB = 1 + TB,
+            PiB = 1 + TiB,
+
+            EB = 1 + PB,
+            EiB = 1 + PiB,
+
+            ZB = 1 + EB,
+            ZiB = 1 + EiB,
+
+            YB = 1 + ZB,
+            YiB = 1 + ZiB
+        }
+
+        private static double getConversionValue(StreamSizeFormat streamSizeFormat)
+        {
+            if (streamSizeFormat == StreamSizeFormat.MB ||
+                streamSizeFormat == StreamSizeFormat.GB ||
+                streamSizeFormat == StreamSizeFormat.TB ||
+                streamSizeFormat == StreamSizeFormat.PB ||
+                streamSizeFormat == StreamSizeFormat.EB ||
+                streamSizeFormat == StreamSizeFormat.ZB ||
+                streamSizeFormat == StreamSizeFormat.YB)
+            {
+                return Math.Pow((int)StreamSizeFormat.KB, (int)streamSizeFormat);
+            }
+
+            if (streamSizeFormat == StreamSizeFormat.MiB ||
+                streamSizeFormat == StreamSizeFormat.GiB ||
+                streamSizeFormat == StreamSizeFormat.TiB ||
+                streamSizeFormat == StreamSizeFormat.PiB ||
+                streamSizeFormat == StreamSizeFormat.EiB ||
+                streamSizeFormat == StreamSizeFormat.ZiB ||
+                streamSizeFormat == StreamSizeFormat.YiB)
+            {
+                return Math.Pow((int)StreamSizeFormat.KiB, (int)streamSizeFormat);
+            }
+
+            return (int)streamSizeFormat;
         }
 
         /// <summary>
