@@ -84,5 +84,10 @@ namespace McKabue.Extentions.Utility
             }
             return isInItems;
         }
+
+        public static bool Contains<T>(this IEnumerable<T> items, Func<T, bool> predicate)
+        {
+            return items != null && items.FirstOrDefault(predicate) != null;
+        }
     }
 }
