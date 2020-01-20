@@ -88,6 +88,7 @@ namespace McKabue.Extentions.Utility.MimeTypes
         /// Stream from response.Content.ReadAsStreamAsync() is not readable randomly
         /// https://stackoverflow.com/a/40351007/3563013
         /// 
+        /// https://dotnetfiddle.net/HOreVg
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
@@ -100,6 +101,7 @@ namespace McKabue.Extentions.Utility.MimeTypes
 
             IEnumerable<string> hex = await GetBytesInHex(stream, 0, 4);
 
+            // https://dotnetfiddle.net/HOreVg
             if (hex.SequenceEqual(new string[] { "25", "50", "44", "46" }))
             {
                 return new MimeTypeModel(MimeType.PDF);
