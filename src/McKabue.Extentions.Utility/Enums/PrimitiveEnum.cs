@@ -16,7 +16,7 @@ namespace McKabue.Extentions.Utility.Enums
             this._enum = _enum;
         }
 
-        public Enum ServiceErrorCode => _enum;
+        public Enum Enum => _enum;
 
 
         public static implicit operator PrimitiveEnum(Enum _enum)
@@ -26,47 +26,47 @@ namespace McKabue.Extentions.Utility.Enums
 
         public static implicit operator Enum(PrimitiveEnum primitiveEnum)
         {
-            return primitiveEnum.ServiceErrorCode;
+            return primitiveEnum.Enum;
         }
 
         public static implicit operator byte(PrimitiveEnum primitiveEnum)
         {
-            return Convert.ToByte(primitiveEnum.ServiceErrorCode);
+            return Convert.ToByte(primitiveEnum.Enum);
         }
 
         public static implicit operator sbyte(PrimitiveEnum primitiveEnum)
         {
-            return Convert.ToSByte(primitiveEnum.ServiceErrorCode);
+            return Convert.ToSByte(primitiveEnum.Enum);
         }
 
         public static implicit operator short(PrimitiveEnum primitiveEnum)
         {
-            return Convert.ToInt16(primitiveEnum.ServiceErrorCode);
+            return Convert.ToInt16(primitiveEnum.Enum);
         }
 
         public static implicit operator ushort(PrimitiveEnum primitiveEnum)
         {
-            return Convert.ToUInt16(primitiveEnum.ServiceErrorCode);
+            return Convert.ToUInt16(primitiveEnum.Enum);
         }
 
         public static implicit operator int(PrimitiveEnum primitiveEnum)
         {
-            return Convert.ToInt32(primitiveEnum.ServiceErrorCode);
+            return Convert.ToInt32(primitiveEnum.Enum);
         }
 
         public static implicit operator uint(PrimitiveEnum primitiveEnum)
         {
-            return Convert.ToUInt32(primitiveEnum.ServiceErrorCode);
+            return Convert.ToUInt32(primitiveEnum.Enum);
         }
 
         public static implicit operator long(PrimitiveEnum primitiveEnum)
         {
-            return Convert.ToInt64(primitiveEnum.ServiceErrorCode);
+            return Convert.ToInt64(primitiveEnum.Enum);
         }
 
         public static implicit operator ulong(PrimitiveEnum primitiveEnum)
         {
-            return Convert.ToUInt64(primitiveEnum.ServiceErrorCode);
+            return Convert.ToUInt64(primitiveEnum.Enum);
         }
     }
 }
