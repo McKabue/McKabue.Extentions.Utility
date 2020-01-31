@@ -9,9 +9,9 @@ namespace McKabue.Extentions.Utility.MimeTypes
     {
         private MimeType? mimeType;
 
-        public MimeTypeModel(object mimeType)
+        public MimeTypeModel(MimeType? mimeType)
         {
-            this.mimeType = mimeType as MimeType?;
+            this.mimeType = mimeType;
         }
 
         public MimeType? MimeType { get => mimeType; set => mimeType = value; }

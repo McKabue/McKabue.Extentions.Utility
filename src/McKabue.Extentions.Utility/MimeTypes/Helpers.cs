@@ -9,18 +9,18 @@ namespace McKabue.Extentions.Utility.MimeTypes
 {
     public static class Helpers
     {
-        private static readonly Lazy<IEnumerable<MimeTypeModel>> mimeTypeMappings = new Lazy<IEnumerable<MimeTypeModel>>(BuildMappings);
+        private static readonly Lazy<IEnumerable<MimeTypeModel>> mimeTypeMappings = 
+            new Lazy<IEnumerable<MimeTypeModel>>(BuildMappings);
 
         private static IEnumerable<MimeTypeModel> BuildMappings()
         {
             string[] names = Enum.GetNames(typeof(MimeType));
 
-            foreach (var name in names)
+            foreach (string name in names)
             {
-                object @enum;
-                Enum.TryParse(typeof(MimeType), name, true, out @enum);
+                Enum.TryParse(typeof(MimeType), name, true, out object @enum);
 
-                yield return new MimeTypeModel(@enum);
+                yield return new MimeTypeModel(@enum as MimeType?);
             }
 
             yield break;
@@ -130,7 +130,7 @@ namespace McKabue.Extentions.Utility.MimeTypes
         /// <param name="start"></param>
         /// <param name="end"></param>
         /// <returns></returns>
-        private static async Task<IEnumerable<string>> GetBytesInHex(Stream stream, int start, int end)
+        private static async Task<string[]> GetBytesInHex(Stream stream, int start, int end)
         {
             using (stream = await stream.CloneStream())
             {
@@ -138,7 +138,7 @@ namespace McKabue.Extentions.Utility.MimeTypes
 
                 await stream.ReadAsync(buffer, start, end);
 
-                return buffer.Select(i => string.Format("{0:X2}", i));
+                return buffer.Select(i => string.Format("{0:X2}", i)).ToArray();
             }
         }
     }

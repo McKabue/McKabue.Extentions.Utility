@@ -14,7 +14,8 @@ namespace McKabue.Extentions.Utility
         /// <typeparam name="TSource"></typeparam>
         /// <typeparam name="TKey"></typeparam>
         /// <returns></returns>
-        public static IEnumerable<TSource> Distinct<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
+        public static IEnumerable<TSource> Distinct<TSource, TKey>(
+            this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
         {
             HashSet<TKey> seenKeys = new HashSet<TKey>();
             foreach (TSource element in source)
@@ -41,13 +42,16 @@ namespace McKabue.Extentions.Utility
             return val;
         }
 
-        public static U Get<T, U>(this IEnumerable<KeyValuePair<T, U>> dict, T key, U _default = default(U), Func<T, T, bool> comparer = null)
+        public static U Get<T, U>(
+            this IEnumerable<KeyValuePair<T, U>> dict, T key, U _default = default(U), 
+            Func<T, T, bool> comparer = null)
         {
             KeyValuePair<T, U>? val = dict?.FirstOrDefault(k => comparer?.Invoke(k.Key, key) ?? k.Key.Equals(key));
             return val.HasValue ? val.Value.Value : _default;
         }
 
-        public static U Get<T, U>(this IEnumerable<KeyValuePair<T, U>> dict, Func<T, bool> comparer, U _default = default(U))
+        public static U Get<T, U>(
+            this IEnumerable<KeyValuePair<T, U>> dict, Func<T, bool> comparer, U _default = default(U))
         {
             KeyValuePair<T, U>? val = dict?.FirstOrDefault(k => comparer?.Invoke(k.Key) ?? false);
             return val.HasValue ? val.Value.Value : _default;

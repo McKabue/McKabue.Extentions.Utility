@@ -46,9 +46,8 @@ namespace McKabue.Extentions.Utility.Enums
 
         public static TEnum GetEnum<TEnum>(this string enumName, TEnum _default = default(TEnum)) where TEnum : Enum
         {
-            object _value;
-            Enum.TryParse(typeof(TEnum), enumName, true, out _value);
-            return _value != null ? (TEnum)_value : _default;
+            Enum.TryParse(typeof(TEnum), enumName, true, out object value);
+            return value != null ? (TEnum)value : _default;
         }
 
         public static bool EnumEqual<TEnum>(this TEnum @enum, int value) where TEnum : Enum
@@ -78,9 +77,9 @@ namespace McKabue.Extentions.Utility.Enums
         public static Dictionary<int, string> EnumDictionary<TEnum>(bool order = false, params TEnum[] excludes) where TEnum : Enum
         {
             excludes = excludes ?? new TEnum[] { };
-            var dict = new Dictionary<int, string>();
-            var names = order ? GetOrderedEnumNames<TEnum>() : Enum.GetNames(typeof(TEnum));
-            foreach (var name in names)
+            Dictionary<int, string> dict = new Dictionary<int, string>();
+            string[] names = order ? GetOrderedEnumNames<TEnum>() : Enum.GetNames(typeof(TEnum));
+            foreach (string name in names)
             {
                 TEnum @enum = name.GetEnum<TEnum>();
 
@@ -97,11 +96,10 @@ namespace McKabue.Extentions.Utility.Enums
         /// </summary>
         /// <typeparam name="TEnum">The type of the enum.</typeparam>
         /// <returns></returns>
-        public static IEnumerable<string> GetOrderedEnumNames<TEnum>()
+        public static string[] GetOrderedEnumNames<TEnum>()
         {
             IEnumerable<FieldInfo> f = typeof(TEnum).GetFields().Where(fi => fi.IsStatic).OrderBy(fi => ((OrderAttribute)fi.GetCustomAttributes(typeof(OrderAttribute), true)?.FirstOrDefault())?.Order);
-            return f.Select(i => i.GetValue(null).ToString());
-
+            return f.Select(i => i.GetValue(null).ToString()).ToArray();
         }
 
         /// <summary>
