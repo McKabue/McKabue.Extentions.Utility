@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.Extensions.Primitives;
 
 namespace McKabue.Extentions.Utility
 {
@@ -42,11 +43,14 @@ namespace McKabue.Extentions.Utility
         }
         public static string Referrer(this HttpContext _httpContext)
         {
-            return _httpContext.Request.Headers["Referer"].ToString();
+            return _httpContext?.Request?.GetTypedHeaders()?.Referer?.ToString();
         }
         public static string UserAgent(this HttpContext _httpContext)
         {
-            return _httpContext.Request.Headers["User-Agent"].ToString();
+            StringValues? stringValues =
+                _httpContext?.Request?.Headers?.FirstOrDefault(i => i.Key?.Trim()?.ToLowerInvariant() == "user-agent").Value;
+
+            return stringValues?.Join(" ")?.Trim();
         }
         public static string IpAddress(this HttpContext _httpContext)
         {
