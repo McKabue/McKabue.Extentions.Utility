@@ -35,26 +35,28 @@ namespace McKabue.Extentions.Utility
         /// <param name="dict"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        public static U Get<T, U>(this IDictionary<T, U> dict, T key, U _default = default(U))
+        public static U Get<T, U>(this IDictionary<T, U> dict, T key, U fallback = default)
         {
-            U val = _default;
+            U val = fallback;
             dict.TryGetValue(key, out val);
             return val;
         }
 
         public static U Get<T, U>(
-            this IEnumerable<KeyValuePair<T, U>> dict, T key, U _default = default(U), 
+            this IEnumerable<KeyValuePair<T, U>> dict,
+            T key,
+            U fallback = default,
             Func<T, T, bool> comparer = null)
         {
             KeyValuePair<T, U>? val = dict?.FirstOrDefault(k => comparer?.Invoke(k.Key, key) ?? k.Key.Equals(key));
-            return val.HasValue ? val.Value.Value : _default;
+            return val.HasValue ? val.Value.Value : fallback;
         }
 
         public static U Get<T, U>(
-            this IEnumerable<KeyValuePair<T, U>> dict, Func<T, bool> comparer, U _default = default(U))
+            this IEnumerable<KeyValuePair<T, U>> dict, Func<T, bool> comparer, U fallback = default)
         {
             KeyValuePair<T, U>? val = dict?.FirstOrDefault(k => comparer?.Invoke(k.Key) ?? false);
-            return val.HasValue ? val.Value.Value : _default;
+            return val.HasValue ? val.Value.Value : fallback;
         }
 
 

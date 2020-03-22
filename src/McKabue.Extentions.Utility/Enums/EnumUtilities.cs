@@ -44,10 +44,11 @@ namespace McKabue.Extentions.Utility.Enums
             return enumMember.Value;
         }
 
-        public static TEnum GetEnum<TEnum>(this string enumName, TEnum _default = default(TEnum)) where TEnum : Enum
+        public static TEnum GetEnum<TEnum>(
+            this string enumName, TEnum fallback = default) where TEnum : Enum
         {
             Enum.TryParse(typeof(TEnum), enumName, true, out object value);
-            return value != null ? (TEnum)value : _default;
+            return value != null ? (TEnum)value : fallback;
         }
 
         public static bool EnumEqual<TEnum>(this TEnum @enum, int value) where TEnum : Enum
