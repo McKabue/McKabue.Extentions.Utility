@@ -48,7 +48,8 @@ namespace McKabue.Extentions.Utility
             U fallback = default,
             Func<T, T, bool> comparer = null)
         {
-            KeyValuePair<T, U>? val = dict?.FirstOrDefault(k => comparer?.Invoke(k.Key, key) ?? k.Key.Equals(key));
+            KeyValuePair<T, U>? val = dict?.FirstOrDefault(i =>
+                comparer?.Invoke(i.Key, key) ?? i.Key.Equals(key));
             return val.HasValue ? val.Value.Value : fallback;
         }
 
