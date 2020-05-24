@@ -34,7 +34,7 @@ namespace McKabue.Extentions.Utility
         public static bool IsLocalhost(this HttpContext _httpContext)
         {
             string host = _httpContext?.Request?.Host.Host.Trim();
-            string ip = _httpContext?.IpAddress();
+            string ip = _httpContext?.XForwardedFor_OR_IpAddress();
             return string.Equals(host, "localhost", StringComparison.OrdinalIgnoreCase) ||
                 string.Equals(ip, "::1", StringComparison.OrdinalIgnoreCase) ||
                 string.Equals(ip, "127.0.0.1", StringComparison.OrdinalIgnoreCase) ||
@@ -52,9 +52,31 @@ namespace McKabue.Extentions.Utility
 
             return stringValues?.Join(" ")?.Trim();
         }
-        public static string IpAddress(this HttpContext _httpContext)
+        public static string IpAddress(this HttpContext httpContext)
         {
-            return _httpContext?.Connection?.RemoteIpAddress.ToString();
+            return httpContext?.Connection?.RemoteIpAddress?.ToString();
+        }
+        /// <summary>
+        /// IP Address of the client that made the first request.
+        /// 
+        /// https://support.cloudflare.com/hc/en-us/articles/200170986-How-does-Cloudflare-handle-HTTP-Request-headers-
+        /// </summary>
+        /// <param name="httpContext"></param>
+        /// <returns></returns>
+        public static string XForwardedFor(this HttpContext httpContext)
+        {
+            string key = "X-Forwarded-For".ToLowerInvariant();
+            return httpContext?.Request?.Headers?.Get(i => i.HasValue() && i?.Trim()?.ToLowerInvariant() == key);
+        }
+        public static string XForwardedFor_OR_IpAddress(this HttpContext httpContext)
+        {
+            string xForwardedFor = httpContext?.XForwardedFor();
+            if (xForwardedFor.HasValue())
+            {
+                return xForwardedFor;
+            }
+
+            return httpContext?.IpAddress();
         }
         public static bool IsAjax(this HttpContext _httpContext)
         {
