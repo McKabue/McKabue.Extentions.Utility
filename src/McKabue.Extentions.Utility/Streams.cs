@@ -79,14 +79,17 @@ namespace McKabue.Extentions.Utility
         {
             B = 1,
 
+            KB = 1000 * B,
             /// <summary>
             /// <see href="https://en.wikipedia.org/wiki/Kibibyte">1 kibibyte is 1024 bytes.</see>
             /// 1 kilobyte is 1000 bytes.
             /// most converters treat them interchacheably.
             /// </summary>
             KiB = 1024 * B,
-            KB = 1000 * B,
 
+            /// <summary>
+            /// The below figures are powers of KB or KiB
+            /// </summary>
             MB = 2,
             MiB = 2,
 
