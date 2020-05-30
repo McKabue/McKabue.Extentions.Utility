@@ -23,11 +23,6 @@ namespace McKabue.Extentions.Utility
             return new byte[] { };
         }
 
-        public static string Join(this string separator, params string[] value)
-        {
-            return string.Join(separator, value);
-        }
-
         public static string Join(this IEnumerable<string> value, string separator)
         {
             return string.Join(separator, value);
@@ -41,7 +36,10 @@ namespace McKabue.Extentions.Utility
         /// <returns></returns>
         public static string CustomNormalize(this string value)
         {
-            if (value.IsEmpty()) return null;
+            if (value.IsEmpty())
+            {
+                return null;
+            }
 
             return value.Trim().Normalize().ToUpperInvariant().RemoveDiacritics();
         }

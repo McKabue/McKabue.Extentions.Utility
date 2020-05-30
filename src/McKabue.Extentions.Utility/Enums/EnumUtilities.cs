@@ -75,17 +75,32 @@ namespace McKabue.Extentions.Utility.Enums
             }
         }
 
-        public static Dictionary<int, string> EnumDictionary<TEnum>(bool order = false, params TEnum[] excludes) where TEnum : Enum
+        public static bool Contains<TEnum>(TEnum @enum) where TEnum : Enum
+        {
+            Dictionary<int, TEnum> enumDictionary = EnumDictionary<TEnum>();
+            foreach (var (_, value) in enumDictionary)
+            {
+                if (@enum.Equals(value))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static Dictionary<int, TEnum> EnumDictionary<TEnum>(bool order = false, params TEnum[] excludes) where TEnum : Enum
         {
             excludes = excludes ?? new TEnum[] { };
-            Dictionary<int, string> dict = new Dictionary<int, string>();
+            Dictionary<int, TEnum> dict = new Dictionary<int, TEnum>();
             string[] names = order ? GetOrderedEnumNames<TEnum>() : Enum.GetNames(typeof(TEnum));
             foreach (string name in names)
             {
                 TEnum @enum = name.GetEnum<TEnum>();
 
                 if (!excludes.Any(i => i.Equals(@enum)))
-                    dict.Add(((int)Enum.Parse(typeof(TEnum), name)), @enum.GetDisplayName<TEnum>());
+                {
+                    dict.Add(((int)Enum.Parse(typeof(TEnum), name)), @enum);
+                }
             }
 
             return dict;
