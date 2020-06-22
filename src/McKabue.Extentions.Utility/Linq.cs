@@ -96,5 +96,24 @@ namespace McKabue.Extentions.Utility
         {
             return items != null && items.FirstOrDefault(predicate) != null;
         }
+
+        public static IEnumerable<IEnumerable<T>> Split<T>(
+            this IEnumerable<T> items, Func<IEnumerable<T>, bool> predicate)
+        {
+            List<T> currentItems = new List<T>();
+            foreach (T item in items)
+            {
+                currentItems.Add(item);
+
+                if (predicate(currentItems))
+                {
+                    yield return currentItems;
+                    // https://stackoverflow.com/a/22064378/3563013
+                    currentItems.Clear();
+                }
+            }
+
+            yield return currentItems;
+        }
     }
 }

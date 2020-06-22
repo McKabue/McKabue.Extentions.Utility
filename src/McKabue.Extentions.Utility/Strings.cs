@@ -145,5 +145,65 @@ namespace McKabue.Extentions.Utility
                     (escape ? Uri.EscapeDataString(x.Value.ToString()) : x.Value.ToString())
                     )));
         }
+
+        public static IEnumerable<string> Split(this string value, int size)
+        {
+            if (value.IsEmpty())
+            {
+                yield break;
+            }
+
+            for (int i = 0; i < value.Length; i = i + size)
+            {
+                int min = Math.Min(size, value.Length - i);
+                string subString = value.Substring(i, min);
+                yield return subString;
+            }
+        }
+
+        public static string TrimStart(this string value, Func<char, bool> predicate)
+        {
+            if (value.IsEmpty())
+            {
+                return string.Empty;
+            }
+
+            for (int i = 0; i < value.Length; i++)
+            {
+                if (predicate(value[i]))
+                {
+                    continue;
+                }
+
+                return value.Substring(i);
+            }
+
+            return string.Empty;
+        }
+
+        public static string TrimEnd(this string value, Func<char, bool> predicate)
+        {
+            if (value.IsEmpty())
+            {
+                return string.Empty;
+            }
+
+            for (int i = value.Length - 1; i >= 0; i--)
+            {
+                if (predicate(value[i]))
+                {
+                    continue;
+                }
+
+                return value.Substring(0, i + 1);
+            }
+
+            return string.Empty;
+        }
+
+        public static string Trim(this string value, Func<char, bool> predicate)
+        {
+            return value.TrimStart(predicate).TrimEnd(predicate);
+        }
     }
 }
