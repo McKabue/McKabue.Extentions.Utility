@@ -6,11 +6,11 @@ namespace McKabue.Extentions.Utility
     {
         public static int GetYears(this TimeSpan timespan)
         {
-            return (int)(timespan.Days / 365);
+            return (int)(timespan / TimeSpan.FromDays(365));
         }
         public static int GetMonths(this TimeSpan timespan)
         {
-            return (int)(timespan.Days / 30);
+            return (int)(timespan / TimeSpan.FromDays(30));
         }
     }
 }
