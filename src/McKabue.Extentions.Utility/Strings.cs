@@ -38,7 +38,7 @@ namespace McKabue.Extentions.Utility
         {
             if (value.IsEmpty())
             {
-                return null;
+                return string.Empty;
             }
 
             return value.Trim().Normalize().ToUpperInvariant().RemoveDiacritics();
