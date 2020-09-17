@@ -106,7 +106,8 @@ namespace McKabue.Extentions.Utility
             return d[n, m];
         }
 
-        public static string ToQueryString(this object request, string separator = ",", string joiner = "&", bool escape = true)
+        public static string ToQueryString(
+            this object request, string separator = ",", string joiner = "&", bool escape = true)
         {
             if (request == null)
                 throw new ArgumentNullException("request");
