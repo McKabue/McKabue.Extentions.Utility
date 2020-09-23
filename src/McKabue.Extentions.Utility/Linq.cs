@@ -44,22 +44,21 @@ namespace McKabue.Extentions.Utility
 
         public static U Get<T, U>(
             this IEnumerable<KeyValuePair<T, U>> dict,
-            T key,
-            U fallback = default,
-            Func<T, T, bool> comparer = null)
+            Func<T, bool> comparer,
+            U fallback = default)
         {
-            KeyValuePair<T, U>? val = dict?.FirstOrDefault(i =>
-                comparer?.Invoke(i.Key, key) ?? i.Key.Equals(key));
+            KeyValuePair<T, U>? val = dict?.FirstOrDefault(i => comparer?.Invoke(i.Key) ?? false);
             return val.HasValue ? val.Value.Value : fallback;
         }
 
         public static U Get<T, U>(
-            this IEnumerable<KeyValuePair<T, U>> dict, Func<T, bool> comparer, U fallback = default)
+            this IEnumerable<KeyValuePair<T, U>> dict,
+            T key,
+            U fallback = default)
         {
-            KeyValuePair<T, U>? val = dict?.FirstOrDefault(k => comparer?.Invoke(k.Key) ?? false);
+            KeyValuePair<T, U>? val = dict?.FirstOrDefault(i => i.Key.Equals(key));
             return val.HasValue ? val.Value.Value : fallback;
         }
-
 
         public static void Set<T, U>(this IDictionary<T, U> dict, T key, U val)
         {
