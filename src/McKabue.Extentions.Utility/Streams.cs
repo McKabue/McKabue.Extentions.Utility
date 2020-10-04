@@ -161,7 +161,7 @@ namespace McKabue.Extentions.Utility
         /// </summary>
         /// <param name="link"></param>
         /// <returns></returns>
-        public static async Task<Stream> CloneStream(this Stream stream, bool copyUsingBytes = false)
+        public static async Task<Stream> CloneStreamAsync(this Stream stream, bool copyUsingBytes = false)
         {
             RecyclableMemoryStreamManager recyclableMemoryStreamManager = new RecyclableMemoryStreamManager();
 

@@ -132,7 +132,7 @@ namespace McKabue.Extentions.Utility.MimeTypes
         /// <returns></returns>
         private static async Task<string[]> GetBytesInHex(Stream stream, int start, int end)
         {
-            using (stream = await stream.CloneStream())
+            using (stream = await stream.CloneStreamAsync())
             {
                 byte[] buffer = new byte[end - start];
 
