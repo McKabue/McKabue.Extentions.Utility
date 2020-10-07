@@ -14,6 +14,10 @@ namespace McKabue.Extentions.Utility
         /// [CanonicalizeAsFilePath](https://referencesource.microsoft.com/#system/net/System/_UriSyntax.cs,572da033d1cbed53,references)3
         /// https://www.c-sharpcorner.com/forums/uri-baseuri-new-uri-giving-problem
         /// https://stackoverflow.com/a/2519684/3563013
+        /// https://stackoverflow.com/questions/53390151/who-can-download-this-image-using-net-3-5
+        /// https://dzone.com/articles/uri-segments-dots-rest-and-net
+        /// https://github.com/microsoft/referencesource/blob/3b1eaf5203992df69de44c783a3eda37d3d4cd10/System/System.txt#L847
+        /// https://github.com/microsoft/referencesource/search?q=net_uri_NotAbsolute
         /// 
         /// Failure to do this results to System.InvalidOperationException when trying to make 
         /// HttpClient request.
