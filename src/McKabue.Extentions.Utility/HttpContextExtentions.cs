@@ -82,5 +82,16 @@ namespace McKabue.Extentions.Utility
         {
             return _httpContext?.Request?.Headers["X-Requested-With"].ToString() == "XMLHttpRequest";
         }
+
+        public static string BrowserReferrer(this HttpContext _httpContext)
+        {
+            string xReferrer = _httpContext?.Request?.Headers?.Get("X-Referrer");
+            if (xReferrer == null || xReferrer.IsEmpty())
+            {
+                return string.Empty;
+            }
+
+            return xReferrer;
+        }
     }
 }
