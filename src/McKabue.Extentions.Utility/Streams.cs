@@ -222,7 +222,7 @@ namespace McKabue.Extentions.Utility
                 }
             }
         }
-        public static string ReadAllText(this Stream stream, Encoding encoding = null)
+        public static async Task<string> ReadAllTextAsync(this Stream stream, Encoding encoding = null)
         {
             encoding = encoding ?? Encoding.UTF8;
 
@@ -232,9 +232,10 @@ namespace McKabue.Extentions.Utility
                 {
                     return string.Empty;
                 }
+
                 using (StreamReader reader = new StreamReader(stream, encoding))
                 {
-                    return reader.ReadToEnd();
+                    return await reader.ReadToEndAsync();
                 }
             }
         }
